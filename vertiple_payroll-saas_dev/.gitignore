@@ -1,0 +1,6 @@
+*.idea
+.env
+*.log
+*.sublime-project
+*.sublime-workspace
+*.pyc

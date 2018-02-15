@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="Apositive" model="vertiple__employee.blood_group">
+            <field name="name">A+</field>     
+        </record>
+        <record id="Anegative" model="vertiple__employee.blood_group">
+            <field name="name">A-</field>     
+        </record>
+        <record id="Bpositive" model="vertiple__employee.blood_group">
+            <field name="name">B+</field>     
+        </record>
+        <record id="Bnegative" model="vertiple__employee.blood_group">
+            <field name="name">B-</field>     
+        </record>
+        <record id="Cpositive" model="vertiple__employee.blood_group">
+            <field name="name">C+</field>     
+        </record>
+        <record id="Cnegative" model="vertiple__employee.blood_group">
+            <field name="name">C-</field>     
+        </record>
+        <record id="Opositive" model="vertiple__employee.blood_group">
+            <field name="name">O+</field>     
+        </record>
+        <record id="Onegative" model="vertiple__employee.blood_group">
+            <field name="name">O-</field>     
+        </record>
+        <record id="ABpositive" model="vertiple__employee.blood_group">
+            <field name="name">AB+</field>     
+        </record>
+        <record id="ABnegative" model="vertiple__employee.blood_group">
+            <field name="name">AB-</field>     
+        </record>
+    </data>
+</odoo>

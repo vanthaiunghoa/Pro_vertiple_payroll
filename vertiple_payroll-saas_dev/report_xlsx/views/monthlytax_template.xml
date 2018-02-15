@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="monthly_tax_report">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="report.external_layout">
+                    <div class="page">
+                        <h1>Ad-hoc Details Report</h1>
+                        <div class="row mt32 mb32">
+                            <div class="col-xs-3">
+                                <strong>Date From:</strong>
+                                <p t-esc="o.start_date"/>
+                            </div>
+                            <div class="col-xs-3">
+                                <strong>Date To:</strong>
+                                <p t-esc="o.end_date"/>
+                            </div>
+                        </div>
+                        <table border="1" class="table table-bordered">
+                            <t t-foreach="get_list(data['form'])" t-as='line'>
+                                <th><span t-esc="line" /></th>
+                            </t>
+                            <t t-foreach="data['form']['employee_ids']" t-as='e'>
+                                <tr>
+                                    <t t-foreach="get_days(data['form'], e)" t-as='line'>
+                                        <td><span t-esc='line' /></td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr>
+                                <t t-foreach="get_total(data['form'])" t-as='total'>
+                                    <td><b><span t-esc='total'/></b></td>
+                                </t>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

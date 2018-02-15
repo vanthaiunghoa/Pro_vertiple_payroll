@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+  <record model="ir.ui.menu" id="hr.menu_hr_root">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.hrms_employee'),ref('hr.group_hr_user'),ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr.menu_human_resources_configuration">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system'),ref('enthsquare_payroll.group_hr_payroll_only_manager')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_contract.hr_menu_contract_type">
+    <field name="groups_id" eval="[(6,0,[ref('enthsquare_payroll.group_hr_payroll_only_manager'),ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr.menu_view_employee_category_form">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system'),ref('enthsquare_payroll.group_hr_payroll_only_manager')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="employee_service.menu_employee_request_type_tree">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_root">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.hrms_employee'),ref('hr.group_hr_user')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_holidays.menu_hr_holidays_root">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.hrms_employee'),ref('hr.group_hr_user'),ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="mail.mail_channel_menu_root_chat">
+    <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="calendar.mail_menu_calendar">
+    <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('vertiple__employee.hrms_employee'),ref('base.group_system'),ref('vertiple__employee.group_only_user'
+)])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode">
+    <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_settings">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_holidays.menu_hr_holidays_dashboard">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system'),ref('vertiple__employee.hrms_employee'),ref('vertiple__employee.group_only_user'
+)])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_holidays.menu_open_ask_holidays_new">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system'),ref('vertiple__employee.hrms_employee'),ref('vertiple__employee.group_only_user'
+)])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_holidays.menu_open_allocation_holidays">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system'),ref('vertiple__employee.hrms_employee'),ref('vertiple__employee.group_only_user'
+)])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_holidays.menu_hr_holidays_report">
+    <field name="groups_id" eval="[(6,0,[ref('vertiple__employee.only_manager'),ref('base.group_system'),ref('vertiple__employee.group_only_user'
+)])]"/>
+  </record>
+  <record model="ir.ui.view" id="hr_inherit">
+    <field name="name">hr employee inherit</field>
+    <field name="model">hr.employee</field>
+    <field name="inherit_id" ref="hr.view_employee_form"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//form/*" position="before">
+          <header>
+            <field name="state" widget="statusbar" attrs="{'invisible': [('new_check_state', '=', False)]}"/>
+          </header>
+        </xpath>
+        <xpath expr="//field[@name='department_id']" position="before">
+          <field name="employee_id"/>
+        </xpath>
+
+        <xpath expr="//field[@name='bank_account_id']" position="after">
+          <field name="pan_number"/>
+          <field name="pf_acc_number"/>
+          <field name="esic_num"/>
+          <field name="blood_group"/>
+        </xpath>
+
+        <xpath expr="//field[@name='identification_id']" position="attributes">
+          <attribute name="string">Aadhar UID</attribute>
+        </xpath>
+        <xpath expr="//form/sheet/notebook/page[2]/group/group[4]" position="after">
+          <separator string='Family'/>
+          <field name="family" nolabel="1">
+            <tree string="Family" editable="top">
+              <field name="name"/>
+              <field name="rel_type" />
+              <field name="rel_contact_num" />
+              <field name="rel_emergency" />
+            </tree>
+          </field>
+        </xpath>
+
+        <xpath expr="//field[@name='birthday']" position="after">
+          <field name="birthday_as_per_cert"/>
+        </xpath>
+
+        <xpath expr="//field[@name='mobile_phone']" position="before">
+          <field name="working_address" groups="vertiple__employee.only_employee"/>
+        </xpath>
+
+        <xpath expr="//button[@name='toggle_active']" position="before">
+            <field name="check_field" invisible="1"/>
+            <field name="new_check_state" invisible="1"/>
+            <field name="check_page" invisible="1"/>
+            <button name="emp_resign" confirm="Are you sure? You want to raise a Resign Request?" type="object" string="Request Resign" attrs="{'invisible': [('check_field', '=', False)]}" />
+        </xpath>
+
+        <!--Actions Tab page-->
+
+        <xpath expr="//page[@name='hr_settings']" position="after">
+          <page name="actions" string="Actions" groups="vertiple__employee.group_only_user,base.group_system,vertiple__employee.only_manager">
+            <group string='Manager Actions' name="active_group" >
+              <field name="manager_status" help="Employee's current status of Approval/Refusal from Manager"/>
+              <field name="manager_feedback" /><br></br><br></br>
+              <button string="Approve" name="manager_approve" type="object" groups="vertiple__employee.group_only_user" class="oe_highlight oe_edit_only" style="width: 35%" help="This button lets you approve the Employee"/>
+              <button string="Refuse" name="manager_refuse" type="object" groups="vertiple__employee.group_only_user" class="oe_highlight oe_edit_only" style="width: 35%" help="This button lets you refuse the Employee"/>
+          </group>                                                                        
+                      
+          <group string='HR Actions' name="active_group" groups="hr.group_hr_user" >
+              <field name="hr_status" help="Employee's current status of Approval/Refusal from HR"/>
+              <field name="hr_feedback"/><br></br><br></br>
+              <button string="Approve" name="hr_approve" type="object" class="oe_highlight oe_edit_only"
+               style="width: 35%" help="This button lets you approve the Employee"/>
+              <button string="Refuse" name="hr_refuse" type="object" class="oe_highlight oe_edit_only" style="width: 35%" help="This button lets you refuse the Employee"/><br></br><br></br>
+              <button string="System Setup Request" name="send_system_setup_mail" type="object" class="oe_highlight" style="width: 35%"
+              help="Send's an email request to IT team for System Setup and generation of new email for an Employee"/>
+          </group>
+                      
+          <group string='Administrator Actions' name="active_group" groups="vertiple__employee.only_manager,base.group_system">
+              <button string="Reset to Probation" name="set_to_probation" type="object" style="width: 35%" class="oe_highlight oe_edit_only" help="This button lets you to reset the state of an employee to 'Probation'"/>
+              <button string="Confirm" name="set_to_confirm" type="object" style="width: 35%" class="oe_highlight oe_edit_only" help="This button lets you to set the state of an employee to 'Confirm'"/><br></br><br></br>
+              <button string="Manager review" name="set_to_manager_review" type="object" style="width: 35%" class="oe_highlight oe_edit_only" help="This button lets you to set the state of an employee to 'Manager Review'"/>
+              <button string="Exit" name="set_to_exit" type="object"  style="width: 35%" class="oe_highlight oe_edit_only" help="This button lets you to set the state of an employee to 'Exit'"/>
+          </group> 
+          </page>
+        </xpath>
+
+        <xpath expr="//field[@name='address_id']" position="attributes">
+            <attribute name="groups">hr.group_hr_user</attribute>
+        </xpath>
+
+        <xpath expr="//field[@name='message_ids']" position="replace">
+         <field name="message_ids" invisible='1'/>
+        </xpath>
+
+        <xpath expr="//field[@name='message_follower_ids']" position="replace">
+          <field name="message_follower_ids" invisible='1'/>
+        </xpath>
+
+        <xpath expr="/form/sheet/notebook/page[@name='personal_information']" position="attributes">
+          <attribute name='groups'>base.group_user</attribute>
+        </xpath>
+
+        <xpath expr="/form/sheet/notebook/page[@name='personal_information']" position="attributes">
+          <attribute name='attrs'>{'invisible': [('check_page', '=', False)]}</attribute>
+        </xpath>
+      </data>
+    </field>
+  </record>
+
+<!--     Blood Group     -->
+
+  <record model="ir.ui.view" id="blood_group_form">
+    <field name="name">vertiple__employee.blood_group.form</field>
+    <field name="model">vertiple__employee.blood_group</field>
+    <field name="arch" type="xml">
+      <form string="Blood Group">
+          <sheet>
+              <group>       
+                  <field name='name'/>
+             </group>
+          </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="blood_group_form_action">
+    <field name="name">Blood Group</field>
+    <field name="res_model">vertiple__employee.blood_group</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Create Blood Group</p>
+    </field>
+  </record>
+
+  <menuitem id="blood_group_menu_item" name="Blood Groups" 
+      parent="hr.menu_human_resources_configuration"
+      action="blood_group_form_action"
+      groups = "hr.group_hr_manager,base.group_system"
+      sequence="1"/>
+      
+  <menuitem id="menu_hr_report" name="Reports" 
+     parent="hr.menu_hr_root" 
+     sequence="101"
+     groups = "vertiple__employee.only_manager,base.group_system,vertiple__employee.group_only_user"/>
+</odoo>

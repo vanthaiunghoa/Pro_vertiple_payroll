@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    	<record id="system_setup_mail_template" model="mail.template">
+          <field name="name">System Setup Request</field>
+          <field name="email_from">hr@enthsquare.com</field>
+          <field name="subject">Request for the System Setup of Onboarded Employee</field>
+          <field name="email_to">it@enthsquare.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="model_hr_employee"/>
+          <field name="auto_delete" eval="True"/>
+	        <field name="body_html">
+            <![CDATA[
+            <p>Dear IT Administrator,<br/><br/>
+	          This is to inform you that we have a new employee onboarded with Enthsquare India. Please do setup a system and generate a new work email address.</p>
+
+            Name of Employee: ${object.display_name} <br/>
+            Expected Email: ${object.work_email} <br/>
+
+            ]]>
+	        </field>
+      </record>
+
+      <record id="request_resign_template" model="mail.template">
+          <field name="name">Employee Resignation Request</field>
+          <field name="email_from">${object.work_email}</field>
+          <field name="subject">${object.display_name} has raised a Resignation Request</field>
+          <field name="email_to">${object.parent_id.work_email}</field>
+          <field name="email_cc">hr@enthsquare.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="model_hr_employee"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="body_html">
+              <![CDATA[
+            <p>Dear ${object.parent_id.display_name},<br/><br/>
+            This is to inform you that ${object.display_name} has raised a resignation request. Kindly, Please do look into the same and take necessary proceedings.
+            
+      ]]>
+          </field>
+      </record>
+
+      <record id="leave_email_to_manager_template" model="mail.template">
+          <field name="name">Leave Email to Manager</field>
+          <field name="email_from">${object.employee_id.work_email}</field>
+          <field name="subject">${object.employee_id.display_name} has applied for a Leave</field>
+          <field name="email_to">${object.employee_id.parent_id.work_email}</field>
+          <field name="email_cc">hr@enthsquare.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="body_html">
+              <![CDATA[
+            <p>Dear ${object.employee_id.parent_id.display_name},<br/>
+            There is a leave application from an Employee. Here are the following leave details. Please do verify and approve/refuse for the same.<br/><br/>
+            Employee Name: ${object.employee_id.display_name}<br/>
+            Leave Type: ${object.holiday_status_id.display_name}<br/>
+            Days: ${object.number_of_days_temp}<br/>
+            Description: ${object.name}<br/>
+            Dates: ${object.date_from} to ${object.date_to}<br/>
+      ]]>
+          </field>
+      </record>
+
+      <record id="leave_approved_email_to_emp_template" model="mail.template">
+          <field name="name">Leave Approval Status Email to Employee</field>
+          <field name="email_from">${object.employee_id.parent_id.work_email}</field>
+          <field name="subject">Your applied Leave Status</field>
+          <field name="email_to">${object.employee_id.work_email}</field>
+          <field name="email_cc">hr@enthsquare.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="body_html">
+              <![CDATA[
+            <p>Dear ${object.employee_id.display_name},<br/>
+            Here is your applied leave Status by your Manager.<br/><br/>
+            Employee Name: ${object.employee_id.display_name}<br/>
+            Leave Type: ${object.holiday_status_id.display_name}<br/>
+            Days: ${object.number_of_days_temp}<br/>
+            Description: ${object.name}<br/>
+            Dates: ${object.date_from} to ${object.date_to}<br/>
+            Status: Approved<br/><br/>
+
+            Enjoy your Leave(s)!!            
+      ]]>
+          </field>
+      </record>
+
+      <record id="leave_refused_email_to_emp_template" model="mail.template">
+          <field name="name">Leave Approval Status Email to Employee</field>
+          <field name="email_from">${object.employee_id.parent_id.work_email}</field>
+          <field name="subject">Your applied Leave Status</field>
+          <field name="email_to">${object.employee_id.work_email}</field>
+          <field name="email_cc">hr@enthsquare.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="body_html">
+              <![CDATA[
+            <p>Dear ${object.employee_id.display_name},<br/>
+            Here is your applied leave Status by your Manager.<br/><br/>
+            Employee Name: ${object.employee_id.display_name}<br/>
+            Leave Type: ${object.holiday_status_id.display_name}<br/>
+            Days: ${object.number_of_days_temp}<br/>
+            Description: ${object.name}<br/>
+            Dates: ${object.date_from} to ${object.date_to}<br/>
+            Status: Refused<br/><br/>
+
+            Contact your Manager for further Details!            
+
+      ]]>
+          </field>
+      </record>
+
+      <record id="emp_prob_near_complete_template" model="mail.template">
+          <field name="name">Employee's Probation Nearing to Complete Template</field>
+          <field name="email_from">hr@enthsquare.com</field>
+          <field name="subject">${object.employee_id.display_name}'s Probation is Nearing to Complete</field>
+          <field name="email_to">${object.employee_id.parent_id.work_email}</field>
+          <field name="email_cc">hr@enthsquare.com</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="model_hr_contract"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="body_html">
+              <![CDATA[
+            <p>Dear ${object.employee_id.parent_id.display_name},<br/><br/>
+           ${object.employee_id.display_name}'s Probation period is Nearing to Complete. Please do look into the same and take further proceedings. Here are the Employee's Details:<br/>
+           Employee's Name: ${object.employee_id.display_name}<br/>
+           Probation End Date: ${object.trial_date_end}
+              ]]>
+           }
+           }
+          </field>
+       </record>
+      
+      <record id="appointment_letter_template" model="mail.template">
+          <field name="name">Send Appointment Letter</field>
+          <field name="email_from">hr@enthsquare.com</field>
+          <field name="subject">Congratulations! Here is your Appointment Letter</field>
+          <field name="email_to">${object.employee_id.work_email}</field>
+          <field name="lang">${object.lang}</field>
+          <field name="model_id" ref="model_hr_contract"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="body_html">
+              <![CDATA[
+            <p>Dear ${object.employee_id.display_name},<br/><br/>
+           Congratulations! Here is your Appointment Letter. Kindly, go through this and feel free to revert us back if you found any discrepencies in the same. All the best!
+              ]]>
+          </field>
+          <field name="report_template" ref="vertiple__employee.appointment_letter"/>
+       </record>
+
+       <!--     ***Manager Approval/Refusal Status To HR***       -->  
+
+      <record id="manager_review_to_hr" model="mail.template">
+        <field name="name">Manager's Review to HR</field>
+        <field name="email_from">${object.parent_id.work_email}</field>
+        <field name="subject">Manager's Review Upon Employee ${object.display_name}</field>
+        <field name="email_to">hr@enthsquare.com</field>
+        <field name="lang">${object.lang}</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html">
+        <![CDATA[
+        <p>Dear HR Administrator,<br/><br/>
+        This is to inform you that ${object.parent_id.display_name} has been given a feedback/review for the employee ${object.display_name}. Kindly,please check into that and proceed further. The following is the feedback given.<br/><br/>
+
+        Name of Employee: ${object.display_name} <br/>
+        Manager Status: ${object.manager_status}<br/>
+        Manager Feedback:${object.manager_feedback}<br/>
+        <br/>
+        ]]>
+        </field>
+      </record>
+
+      <!--          ***  HR Approval Status To Employee***      -->
+
+    <record id="hr_review_to_emp" model="mail.template">
+        <field name="name">Hr Review to Employee</field>
+        <field name="email_from">hr@enthsquare.com</field>
+        <field name="subject">Employement Status Review</field>
+        <field name="email_to">${object.work_email}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html">
+         <![CDATA[
+        <p>Dear ${object.display_name},<br/><br/>
+        Thanks for staying with Enthsquare Family! Here is your Employement Status after completion of your probation period. Feel free to approach HR for further Details.<br/>
+
+        Name of Employee: ${object.display_name} <br/>
+        Status: Approved<br/>
+
+        Welcome to Enthsquare Family! 
+        ]]>
+        </field>
+    </record>
+
+    <!--          ***  HR Rejection Status To Employee***      -->
+
+    <record id="hr_review_to_emp" model="mail.template">
+        <field name="name">Hr Review to Employee</field>
+        <field name="email_from">hr@enthsquare.com</field>
+        <field name="subject">Employement Status Review</field>
+        <field name="email_to">${object.work_email}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="auto_delete" eval="True"/>
+        <field name="body_html">
+         <![CDATA[
+        <p>Dear ${object.display_name},<br/><br/>
+        Thanks for staying with Enthsquare Family! Here is your Employement Status after completion of your probation period. Feel free to approach HR for further Details.<br/>
+
+        Name of Employee: ${object.display_name} <br/>
+        Status: Refused
+
+        ]]>
+        </field>
+    </record>
+    </data>
+</odoo>

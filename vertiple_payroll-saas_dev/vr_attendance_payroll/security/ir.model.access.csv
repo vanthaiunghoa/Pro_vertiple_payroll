@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vr_attendance_payroll_vr_attendance_payroll1,vr_attendance_payroll.vr_attendance_payroll,model_compensatory_holiday,base.group_user,1,1,1,0
+access_vr_attendance_payroll_vr_attendance_payroll2,vr_attendance_payroll.vr_attendance_payroll1,model_compensatory_holiday,hr.group_hr_manager,1,1,1,1
+access_vr_attendance_payroll_vr_attendance_payroll3,res.calender.leaves,resource.model_resource_calendar_leaves,base.group_user,1,1,1,1

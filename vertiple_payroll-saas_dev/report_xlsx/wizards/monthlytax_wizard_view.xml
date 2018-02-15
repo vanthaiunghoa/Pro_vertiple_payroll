@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_monthly_taxes" model="ir.ui.view">
+        <field name="name">Ad-hoc Details Report</field>
+        <field name="model">report_xlsx.monthly_tax</field>
+        <field name="arch" type="xml">
+            <form string="Ad-hoc Details Report">
+                <label string="This wizard will helps to print the employees Payroll Details Report for a specified dates."/>
+                <group>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <separator string="Salary Component" />
+                    <field name="category_id" nolabel="1" colspan="4"/>
+                    <separator string="Employees" />
+                    <field name="employee_ids" nolabel="1" colspan="4"/>
+                </group>
+                <footer>
+                    <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_monthly_taxes" model="ir.actions.act_window">
+        <field name="name">Ad-hoc Details Report Action</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report_xlsx.monthly_tax</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="adhoc_menuitem"
+              name="Ad-hoc Details Report"
+              parent="l10n_in_hr_payroll.menu_l10n_in_hr_payroll_report"
+              action="action_monthly_taxes"
+    />
+</odoo>

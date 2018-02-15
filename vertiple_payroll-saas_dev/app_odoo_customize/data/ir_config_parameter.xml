@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+        <record id="app_system_name" model="ir.config_parameter">
+            <field name="key">app_system_name</field>
+            <field name="value">Vertiple</field>
+        </record>
+
+        <record id="mail.ir_cron_module_update_notification" model="ir.cron">
+			<field name="active" eval="False" />
+		</record>
+
+    </data>
+</openerp>

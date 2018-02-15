@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="only_leaves" model="ir.filters">
+            <field name="name">Only Leaves</field>
+            <field name="model_id">hr.holidays</field>
+            <field name="domain">[[u'state', u'in', [u'confirm', u'validate1']], [u'type', u'=', u'remove']]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="approved_leaves" model="ir.filters">
+            <field name="name">Leaves Approved</field>
+            <field name="model_id">hr.holidays</field>
+            <field name="domain">[[u'type', u'=', u'remove'], [u'state', u'=', u'validate']]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="refused_leaves" model="ir.filters">
+            <field name="name">Leaves Refused</field>
+            <field name="model_id">hr.holidays</field>
+            <field name="domain">[[u'type', u'=', u'remove'], [u'state', u'=', u'refuse']]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+
+        <record id="emp_on_prob" model="ir.filters">
+            <field name="name">Employees In Probation</field>
+            <field name="model_id">hr.contract</field>
+            <field name="domain">[('employee_id.state', '=', 'probation')]</field>
+            <field name="user_id" eval="False"/>
+        </record>
+
+		<record id="rule_to_check_leaves" model="base.action.rule">
+            <field name="name">Leaves: Check for New Leaves</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="sequence">50</field>
+            <field name="kind">on_create</field>
+            <field name="filter_id" ref="only_leaves"/>
+            <field name="server_action_ids" eval="[(6, 0, [ref('leave_email_manager')])]"/>
+        </record>
+
+        <record id="rule_to_check_approved_leaves" model="base.action.rule">
+            <field name="name">Leaves: Check for Approved Leaves</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="sequence">50</field>
+            <field name="kind">on_write</field>
+            <field name="filter_pre_id" ref="only_leaves"/>
+            <field name="filter_id" ref="approved_leaves"/>
+            <field name="server_action_ids" eval="[(6, 0, [ref('leave_email_approved_to_emp_sa')])]"/>
+        </record>
+
+        <record id="rule_to_check_refused_leaves" model="base.action.rule">
+            <field name="name">Leaves: Check for Refused Leaves</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="sequence">50</field>
+            <field name="kind">on_write</field>
+            <field name="filter_pre_id" ref="only_leaves"/>
+            <field name="filter_id" ref="refused_leaves"/>
+            <field name="server_action_ids" eval="[(6, 0, [ref('leave_email_refused_to_emp_sa')])]"/>
+        </record>
+
+        <record id="emp_nearing_to_complete_probation" model="base.action.rule">
+            <field name="name">Employee's Probation Nearing to Complete</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="sequence">50</field>
+            <field name="kind">on_time</field>
+            <field name="filter_id" ref="emp_on_prob"/>
+            <field name="trg_date_id" ref="hr_contract.field_hr_contract_trial_date_end"/>
+            <field name="trg_date_range">-5</field>
+            <field name="server_action_ids" eval="[(6, 0, [ref('emp_completion_prob_sa'), ref('status_set_to_manager_review')])]"/>
+        </record>
+	</data>
+</odoo>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="payslip_report">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <!-- <t t-call="report.external_layout"> -->
+               <div class="page">
+                <header>
+                    <table border="1" class="table table-bordered">
+                        <tr>
+                            <td class = "text-center">
+                                <img t-if="o.company_id" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height: 55px;"/>
+                            </td>
+                            <td class = "text-center"><b>
+                                <span t-field="o.company_id.name"/><br/>
+                                <span t-field="o.company_id.street"/>,
+                                <span t-field="o.company_id.street2"/>,
+                                <span t-field="o.company_id.city"/>-  
+                                <span t-field="o.company_id.zip"/>                                
+                            </b>
+                            </td>
+                        </tr>
+                    </table>                                      
+                </header>                
+                    <center><h3 t-field="o.name"/></center>
+                    <table border="1" class="table table-condensed table-bordered">
+                        <tr>
+                            <td>Employee Name</td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td>Bank Account Number</td>
+                            <td><span t-field="o.acc_number"/></td> 
+                        </tr>
+                        <tr>
+                            <td>Employee ID</td>
+                            <td><span t-field="o.employee_id.emp_id"/></td>
+                            <td>Bank Name</td>
+                            <td><span t-field="o.bank"/></td>                            
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td><span t-field="o.employee_id.job_id"/></td>
+                            <td>Total Working Days</td>
+                            <td class="text-center"> <t t-foreach="o.worked_days_line_ids" t-as="oo">
+                                <t t-if ="oo.code == 'WORK100'">
+                                    <span t-field="oo.number_of_days"/>
+                                </t>
+                            </t>
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td>Department</td>
+                            <td><span t-field="o.employee_id.department_id"/></td>
+                            <td>Leaves</td>
+                            <td class="text-center">
+                              <span t-field="o.leaves"/>                                         
+                            </td>                                                              
+                        </tr>
+                        <tr>
+                            <td>Date of Joining</td>
+                            <td><span t-field="o.contract_id.date_start"/></td>
+                            <td>LWP</td>
+                            <td class="text-center"> 
+                                <span t-field="o.lwp" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PF Account Number</td>
+                            <td><span t-field="o.employee_id.pf_acc_number"/></td>
+                            <td>Leave Balance</td>
+                            <td class="text-center"><span t-field="o.employee_id.remaining_leaves"/></td>
+                        </tr>
+                    </table>
+                    
+                    <!-- parent table -->
+                    <table border="1" class="table table-condensed table-bordered">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <table border="1" class="table table-condensed table-bordered">
+                              <tbody>
+                                <tr>
+                                  <th class = "text-center">
+                                    EARNINGS
+                                  </th>
+                                  <th class = "text-center">
+                                    DEDUCTIONS
+                                  </th>
+                                </tr>
+                               <!-- this new row will hold the two nested tables in td tags -->
+                                <tr> 
+                                <!--  Earnings table -->
+                                  <td>
+                                    <table border="1" class="table table-condensed table-bordered">
+                                      <tbody>
+                                        <tr>
+                                          <th width="60%"> Description</th>
+                                          <th class="text-center"> Amount</th>
+                                        </tr>
+                                        <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">                                    
+                                          <t t-if="line.category_id.name == 'Allowance' or line.category_id.code == 'BASIC'">
+                                            <td><span t-field="line.name"/></td>
+                                            <td class="text-right"><span t-esc="line.total" t-esc-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                          </t>
+                                        </tr>                                        
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                <!-- Deductions Table -->
+                                  <td>
+                                    <table border="1" class="table table-condensed table-bordered">
+                                      <tbody>
+                                        <tr>
+                                          <th width="60%"> Description</th>
+                                          <th class="text-center"> Amount</th>
+                                        </tr>
+                                        <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                          <t t-if="line.category_id.name == 'Deduction'">
+                                            <td><span t-field="line.name"/></td>
+                                            <td class="text-right"><span t-esc="line.total" t-esc-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                          </t>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                                <table border="1" class="table table-bordered">
+                                <tr>
+                                    <td width="29%">Gross Pay</td>
+                                    <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                    <t t-if="line.code == 'GROSS'">
+                                      <td width="26%" class="text-right"><span t-esc="line.total" t-esc-options='{"widget": "monetary",              "display_currency": o.company_id.currency_id}'/></td>
+                                    </t>
+                                    </t>
+                                    <td width="30%">Gross Deductions</td>
+                                    <td class="text-right" width="30%">
+                                      <span t-esc="o.get_total_deductions()" t-esc-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                                </table>
+                              </tbody>
+                            </table>        
+                          </td>
+                        </tr>
+                       <!--  this row will hold the net pay and amount in words table -->
+                        <tr>
+                          <td>                            
+                            <table border="1" class="table table-bordered">
+                              <tbody>
+                                <tr>
+                                  <td width="29%">
+                                    <strong>Net Pay</strong>
+                                  </td>
+                                <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                <t t-if="line.code == 'NET'">
+                                  <td><span t-esc="line.total" t-esc-options='{"widget": "monetary", "display_currency": o.company_id.currency_id}'/></td>
+                                </t>
+                                </t>
+                                </tr>
+                                <tr>
+                                  <td width="29%">
+                                    <strong>Amount In Words</strong>
+                                  </td>
+                                  <td>
+                                    <t t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                    <t t-if="line.code == 'NET'">
+                                      <span t-esc="o.numtowords(line.total)"/>   Rupees Only
+                                    </t>
+                                    </t>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>  
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br/>
+                    <p class="text-left"><strong><i>Remarks:</i></strong></p>
+                    <p><i>This is computer generated payslip and does not require any signature.<br/>
+                    This is a confidential information and you are adviced not to share it with others.</i></p>
+                </div>
+        </t>
+    </t>
+</template>
+</odoo>

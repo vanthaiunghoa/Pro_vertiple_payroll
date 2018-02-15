@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <template id="inherit_favicon_layout" inherit_id="web.layout" name="MYSITE layout" priority="17">
+            <xpath expr="//head//link" position="replace">
+                <link rel="shortcut icon" href="/vr_website/static/src/img/vertiple.ico" type="image/x-icon"/>
+            </xpath>
+        </template>        
+
+        <template id="layout_logo_show" inherit_id="website.layout_logo_show">
+            <xpath expr="//a//img" position="replace">
+                <img src="/vr_website/static/src/img/vertiple.png"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
