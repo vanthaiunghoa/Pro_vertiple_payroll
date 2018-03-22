@@ -1,0 +1,579 @@
+<odoo>
+  <!-- Permissions Groups -->
+  <record model="ir.ui.menu" id="hr_contract.hr_menu_contract">
+    <field name="groups_id" eval="[(6,0,[ref('enthsquare_payroll.group_hr_payroll_only_manager'),ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_contract.hr_menu_contract_type">
+    <field name="groups_id" eval="[(6,0,[ref('enthsquare_payroll.group_hr_payroll_only_manager'),ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="mail.mail_channel_menu_root_chat">
+    <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="calendar.mail_menu_calendar">
+    <field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="hr_payroll.menu_hr_payslip_run">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="l10n_in_hr_payroll.menu_l10n_in_hr_payroll_report">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="l10n_in_hr_payroll.menu_reporting_payment_advice">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.ui.menu" id="l10n_in_hr_payroll.menu_reporting_payslip">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.actions.report.xml" id="hr_payroll.action_report_payslip">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.actions.report.xml" id="l10n_in_hr_payroll.payslip_details_report">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.actions.report.xml" id="hr_payroll.payslip_details_report">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.actions.act_window" id="hr_payroll.act_payslip_lines">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <record model="ir.actions.act_window" id="base.action_server_action">
+    <field name="groups_id" eval="[(6,0,[ref('hr_payroll.group_hr_payroll_user')])]"/>
+  </record>
+
+  <!-- Email Templates -->
+
+  <record id="auth_signup.set_password_email" model="mail.template">
+            <field name="name">Auth Signup: Vertiple Invitation</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <notifications-no-reply@vertiple.com>]]></field>
+            <field name="subject"><![CDATA[Set a password for your Vertiple ESS account]]></field>
+            <field name="body_html"><![CDATA[
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td style="padding: 10px 0 30px 0;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+          <tbody>
+            <tr>
+              <td align="center" bgcolor="#89B0C7" style="padding: 20px 0 20px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+                Create a Password
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
+                        <b>Dear ${object.name}</b>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        Your Employee Self Service account is created on Vertiple. You can now access your Pay slips online.<br><br>
+                        In order to get access to your Pay slips, you are required to set a password for your account.<br><br>
+                        To set a password to your account, click on the following link:<br><br>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div style="text-align: center; margin-top: 15px;">
+                          <a href="${object.signup_url}" style="padding: 5px 10px; font-size: 14px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 30px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #5BB85D; border: 3px solid #5BB85D; border-radius:3px">Set a Password
+                          </a>          
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        Best Regards,<br>Team HR<br><i>${user.company_id.name}</i><br>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:600px;margin:auto; margin-top: 10px; font-size: 13px; color: #153643; background: #fff repeat top /100%;color:#777777">
+                        <b>Disclaimer: </b><i>Please do not reply to this email, as this inbox is not monitored. If you have any questions please get in touch with the HR Team.</i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:600px;margin:auto; margin-top: 10px; font-size: 13px; color: #153643; background: #fff repeat top /100%;color:#777777">
+                        <p style="font-size: 11px; margin-top: 10px;">
+                          <strong>Sent by <a href="http://www.vertiple.com" data-original-title="" title="">Vertiple</a></strong>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#89B0C7" style="padding: 10px 10px 10px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
+                        © 2017 Enthsquare Technologies India Pvt. Ltd.
+                      </td>
+                      <td align="right" width="25%">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                          <tbody>
+                            <tr>
+                              <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
+                                <!--  -->
+                              </td>
+                              <td style="font-size: 0; line-height: 0;" width="20">
+                                &nbsp;
+                              </td>
+                              <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
+                                <!--  -->
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>]]></field>
+            <field name="user_signature" eval="False"/>
+  </record>
+
+  <record id="auth_signup.reset_password_email" model="mail.template">
+            <field name="name">Auth Signup: Vertiple Reset Password</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="email_from"><![CDATA["${object.company_id.name|safe}" <notifications-no-reply@vertiple.com>]]></field>
+            <field name="email_to">${object.email|safe}</field>
+            <field name="subject">Reset password for your Vertiple ESS account</field>
+            <field name="body_html"><![CDATA[
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody>
+    <tr>
+      <td style="padding: 10px 0 30px 0;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+          <tbody>
+            <tr>
+              <td align="center" bgcolor="#89B0C7" style="padding: 20px 0 20px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+                Reset Password
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
+                        <b>Dear ${object.name}</b>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        A password reset was requested for your Vertiple Employee Self Service account.<br><br>
+                        You may change your password by following this link which will remain valid for the next 24 hours only.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div style="text-align: center; margin-top: 15px;">
+                          <a href="${object.signup_url}" style="padding: 5px 10px; font-size: 14px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 30px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #5BB85D; border: 3px solid #5BB85D; border-radius:3px">Reset Password
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        If you did not request this, please ignore this email.                        
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        Best Regards,<br>Team HR<br><i>${user.company_id.name}</i><br>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:600px;margin:auto; margin-top: 10px; font-size: 13px; color: #153643; background: #fff repeat top /100%;color:#777777">
+                        <b>Disclaimer: </b><i>Please do not reply to this email, as this inbox is not monitored. If you have any questions please get in touch with the HR Team.</i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:600px;margin:auto; margin-top: 10px; font-size: 13px; color: #153643; background: #fff repeat top /100%;color:#777777">
+                        <p style="font-size: 11px; margin-top: 10px;">
+                          <strong>Sent by <a href="http://www.vertiple.com" data-original-title="" title="">Vertiple</a></strong>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#89B0C7" style="padding: 10px 10px 10px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
+                        © 2017 Enthsquare Technologies India Pvt. Ltd.
+                      </td>
+                      <td align="right" width="25%">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                          <tbody>
+                            <tr>
+                              <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
+                                <!--  -->
+                              </td>
+                              <td style="font-size: 0; line-height: 0;" width="20">
+                                &nbsp;
+                              </td>
+                              <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
+                                <!--  -->
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>]]></field>
+            <field name="user_signature" eval="False"/>
+  </record>
+
+  <record id="send_payslip_to_employee_email" model="mail.template">
+            <field name="name">Payslip: Email Payslip to Employee</field>
+            <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+            <field name="email_from"><![CDATA[${object.company_id.display_name} <notifications-no-reply@vertiple.com>]]></field>
+            <field name="email_to">${object.contract_id.employee_id.work_email}</field>
+            <field name="subject">${object.name}</field>
+            <field name="body_html"><![CDATA[
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%"> 
+  <tbody>
+    <tr>
+      <td style="padding: 10px 0 30px 0;">
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
+          <tbody>
+            <tr>
+              <td align="center" bgcolor="#89B0C7" style="padding: 20px 0 20px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
+                ${object.name}
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
+                        <b>Dear ${object.contract_id.employee_id.display_name}</b>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        Your ${object.name} has been generated and is ready to download/print.You can access it by logging into the Employee Self Service Portal here:
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <div style="text-align: center; margin-top: 15px;">
+                          <a href="https://vertiple.com/web/login" style="padding: 5px 10px; font-size: 14px; line-height: 18px; color: #FFFFFF; border-color:#875A7B; text-decoration: none; display: inline-block; margin-bottom: 30px; font-weight: 400; text-align: center; vertical-align: middle; cursor: pointer; white-space: nowrap; background-image: none; background-color: #5BB85D; border: 3px solid #5BB85D; border-radius:3px">My Payslip(s)</a>          
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+                        Best Regards,<br>Team HR<br><i>${object.contract_id.employee_id.company_id.display_name}</i><br>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:600px;margin:auto; margin-top: 10px; font-size: 13px; color: #153643; background: #fff repeat top /100%;color:#777777">
+                        <b>Disclaimer: </b><i>Please do not reply to this email, as this inbox is not monitored. If you have any questions please get in touch with the HR Team.</i>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="width:600px;margin:auto; margin-top: 10px; font-size: 13px; color: #153643; background: #fff repeat top /100%;color:#777777">
+                        <p style="font-size: 11px; margin-top: 10px;">
+                          <strong>Sent by <a href="http://www.vertiple.com" data-original-title="" title="">Vertiple</a></strong>
+                        </p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td bgcolor="#89B0C7" style="padding: 10px 10px 10px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" width="75%">
+                      © 2017 Enthsquare Technologies India Pvt. Ltd.<br>
+                      </td>
+                      <td align="right" width="25%">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                          <tbody>
+                            <tr>
+                              <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
+                                <!--  -->
+                              </td>
+                              <td style="font-size: 0; line-height: 0;" width="20">&nbsp;</td>
+                              <td style="font-family: Arial, sans-serif; font-size: 12px; font-weight: bold;">
+                                <!--  -->
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>]]></field>
+            <field name="user_signature" eval="False"/>
+  </record>
+
+  <!-- Filters -->
+
+  <record id="payslip_state_done" model="ir.filters">
+    <field name="name">Done Payslips</field>
+    <field name="domain">[[u'state', u'=', u'done']]</field>
+    <field name="model_id">hr.payslip</field>
+  </record>
+
+  <!-- Server Actions -->
+
+  <record id="payslip_status_to_draft" model="ir.actions.server">
+    <field name="name">Payslip Status: Set to Draft</field>
+    <field name="model_id" ref="model_hr_payslip"/>
+    <field name="condition">True</field>
+    <field name="type">ir.actions.server</field>
+    <field name="state">code</field>
+    <field name="sequence" eval="1"/>
+    <field name="code">records.action_payslip_draft()</field>
+    <field name="group_ids" eval="[(4, ref('hr_payroll.group_hr_payroll_user'))]"/>
+  </record>
+
+  <record id="send_payslip_email_to_employee" model="ir.actions.server">
+    <field name="name">Payslip: Send Email Notification to Employee</field>
+    <field name="model_id" ref="model_hr_payslip"/>
+    <field name="condition">True</field>
+    <field name="type">ir.actions.server</field>
+    <field name="state">email</field>
+    <field name="sequence" eval="1"/>
+    <field name="template_id" ref="send_payslip_to_employee_email"/>
+  </record>
+
+  <!-- Automated Actions -->
+
+  <record id="email_notificaition_to_emp" model="base.action.rule">
+    <field name="name">Payslip: Email Notification of Payslip to Employee </field>
+    <field name="model_id" ref="model_hr_payslip"/>
+    <field name="active">1</field>
+    <field name="sequence" eval="1"/>
+    <field name="kind">on_create_or_write</field>
+    <field name="filter_id" ref="payslip_state_done"/>
+    <field name="server_action_ids" eval="[(6,0,[ref('send_payslip_email_to_employee')])]"/>
+  </record>
+
+  <!-- Views -->  
+
+  <record model="ir.ui.view" id="hr_payslip_inherit">
+    <field name="name">hr payslip inherit</field>
+    <field name="model">hr.payslip</field>
+    <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//form/sheet/div[2]/label[@for='employee_id']" position="replace">
+        <label for="employee_id" class="oe_edit_only" groups="hr_payroll.group_hr_payroll_user"/>
+      </xpath>  
+
+      <xpath expr="//field[@name='employee_id']" position="replace">
+        <field name="employee_id" placeholder="Employee" groups="hr_payroll.group_hr_payroll_user"/>
+      </xpath>
+
+      <xpath expr="//field[@name='name']" position="replace">
+        <field name="name"/>
+      </xpath>
+
+      <xpath expr="//field[@name='employee_id']" position="after">
+        <div>
+          <label for="employee_name" class="oe_edit_only" groups="enthsquare_payroll.group_hr_payroll_emp"/>
+          <field name="employee_name" placeholder="Employee" groups="enthsquare_payroll.group_hr_payroll_emp"/>
+        </div>
+      </xpath>
+
+      <xpath expr="//field[@name='credit_note']" position="after">
+        <field name="days_per_month" invisible="1"/>
+      </xpath>
+
+      <xpath expr="//field[@name='contract_id']" position="replace">
+        <field name="contract_id" groups="hr_payroll.group_hr_payroll_user"/>
+      </xpath>
+    
+      <xpath expr="//field[@name='struct_id']" position="replace">
+        <field name="struct_id" groups="hr_payroll.group_hr_payroll_user"/>
+      </xpath>
+      
+      <xpath expr="//field[@name='credit_note']" position="replace">
+        <field name="credit_note" groups="hr_payroll.group_hr_payroll_user"/>
+      </xpath>
+    
+      <xpath expr="//notebook" position="attributes">
+        <attribute name="groups">hr_payroll.group_hr_payroll_user</attribute>
+      </xpath>
+
+      <xpath expr="//sheet/div" position="attributes">
+        <attribute name="groups">hr_payroll.group_hr_payroll_user</attribute>
+      </xpath>
+
+      <xpath expr="//header/field[@name='state']" position="attributes">
+        <attribute name="groups">hr_payroll.group_hr_payroll_user</attribute>
+      </xpath>
+
+      <xpath expr="//header/button[@name='refund_sheet']" position="attributes">
+        <attribute name="groups">hr_payroll.group_hr_payroll_user</attribute>
+      </xpath>
+
+      <xpath expr="//field[@name='credit_note']" position="after">
+        <field name="bank" invisible='1'/>
+      </xpath>
+       
+      <xpath expr="//field[@name='credit_note']" position="after">
+        <field name="acc_number" invisible='1'/>
+      </xpath>
+ 
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="hr_contract_inherit">
+    <field name="name">hr employee inherit</field>
+    <field name="model">hr.contract</field>
+    <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//field[@name='wage']" position="attributes">
+          <attribute name='string'>CTC (Monthly)</attribute>
+        </xpath>
+
+        <xpath expr="/form/sheet/notebook/page/group[1]/group[2]" position="replace">
+          <group name="duration_group" string="Duration">
+            <label for="trial_date_start" string="Probation Start Date"/>
+            <div>
+              <field name="trial_date_start" class="oe_inline"/> 
+            </div>
+            <label for="trial_date_start" string="Probation End Date"/>
+            <div>
+              <field name="trial_date_end" class="oe_inline"/>
+            </div>
+            <label for="date_start" string="Date of Joining"/>
+            <div>
+              <field name="date_start" class="oe_inline"/> 
+            </div>
+            <label for="date_start" string="Date of Relieving"/>
+            <div>
+              <field name="date_end" class="oe_inline"/> 
+            </div>
+            <label for="working_hours" string="Working Schedule"/>
+            <div>
+              <field name="working_hours" class="oe_inline"/>
+            </div>
+          </group>
+        </xpath>
+
+      </data>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="hr_inherit">
+    <field name="name">hr employee inherit</field>
+    <field name="model">hr.employee</field>
+    <field name="inherit_id" ref="hr.view_employee_form"/>
+    <field name="arch" type="xml">
+      <data>
+        <xpath expr="//form/sheet/div[2]" position="replace">
+          <group>
+            <field name="name" invisible="1"/>
+            <field name="first_name" placeholder="First Name" class= 'oe_inline' style="width:2%" />
+            <field name="middle_name" placeholder="Middle Name" class='oe_inline' style="width:2%" />
+            <field name="last_name" placeholder="Last Name" class='oe_inline' style="width:2%" />
+          </group>
+        </xpath>
+ 
+        <xpath expr="//field[@name='bank_account_id']" position="after">
+          <field name="pf_acc_number"/>
+          <field name="pan_number"/>
+        </xpath>
+ 
+        <xpath expr="//field[@name='identification_id']" position="attributes">
+          <attribute  name="string">Aadhar UID</attribute>
+        </xpath>
+ 
+      </data>
+    </field>
+  </record>
+  
+  <record model="ir.ui.view" id="string_name_change_contract_inherit">
+    <field name="name">Hr Contract Inherit</field>
+    <field name="model">hr.contract</field>
+    <field name="inherit_id" ref="l10n_in_hr_payroll.hr_contract_form_in_inherit"/>
+    <field name="arch" type="xml">
+      <data>
+        
+        <xpath expr="//group/separator" position="attributes">
+          <attribute name="string">Earning</attribute>
+        </xpath>
+
+        <xpath expr="//group/field[@name='house_rent_allowance_metro_nonmetro']" position="after">
+         <field name="basic"/> 
+        </xpath>
+
+      </data>
+    </field>
+  </record>
+
+  <menuitem id="hr_payroll.menu_hr_payroll_root" name="Payroll" groups="group_hr_payroll_emp,hr_payroll.group_hr_payroll_user"/>
+  <menuitem id="hr_payroll.menu_department_tree" name="Employee Payslips" parent="hr_payroll.menu_hr_payroll_root" groups="group_hr_payroll_emp"/>
+  <menuitem
+           id="hr_payroll.menu_action_hr_contribution_register_form"
+           parent="l10n_in_hr_payroll.menu_l10n_in_hr_payroll_report"
+           name="Contribution Registers" groups = "hr_payroll.group_hr_payroll_user"
+           sequence="14"
+       />
+</odoo>

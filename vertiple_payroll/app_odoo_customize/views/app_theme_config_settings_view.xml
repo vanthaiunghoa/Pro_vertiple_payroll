@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_app_theme_config_settings" model="ir.ui.view">
+            <field name="name">App Odoo Customize Settings</field>
+            <field name="model">app.theme.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="odooApp Settings" class="oe_form_configuration">
+                    
+                    <separator string="White Label Setting"/>
+                    <group string="System Name">
+                        <label for="app_system_name"/>
+                        <div>
+                            <field name="app_system_name"/>
+                        </div>
+                        
+                    </group>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="action_app_theme_config" model="ir.actions.act_window">
+            <field name="name">odooApp Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">app.theme.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+       
+    </data>
+</openerp>

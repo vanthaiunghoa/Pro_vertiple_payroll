@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="only_employee" model="res.groups">
+		<field name="name">Employee/Only Employee</field>
+	</record>
+
+	<record id="group_only_user" model="res.groups">
+		<field name="name">Employee/Only Officer</field>
+	</record>
+
+    <record id="only_manager" model="res.groups">
+       <field name="name">Employee/Only Manager</field>
+    </record>
+
+    <record id="hrms_employee" model="res.groups">
+       <field name="name">Employee/HRMS Employee</field>
+    </record>
+
+    <record id="reporting_manager" model="res.groups">
+       <field name="name">Employee/Reporting Manager</field>
+    </record>
+
+    <record id="hr.access_hr_employee_user" model="ir.model.access">
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+
+	<record id="hr.access_hr_department_user" model="ir.model.access">
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+
+	<record id="hr.access_hr_job_user" model="ir.model.access">
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+
+	<record id="hr_holidays.access_hr_holidays_employee" model="ir.model.access">
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+
+	<record id="hr_holidays.access_hr_holidays_user" model="ir.model.access">
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+
+	<record id="hr_attendance.access_hr_attendance_user" model="ir.model.access">
+	    <field name="perm_read" eval="True"/>
+	    <field name="perm_write" eval="True"/>
+	    <field name="perm_create" eval="True"/>
+	    <field name="perm_unlink" eval="False"/>
+	</record>
+</odoo>

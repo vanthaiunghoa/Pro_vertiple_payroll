@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record model="ir.ui.view" id="hr_holidays_inherit">
+        <field name="name">hr holidays inherit</field>
+        <field name="model">hr.holidays</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//form/*" position="before">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate,cancel_leave,cancel_approve"/>
+                    </header>
+                </xpath>
+
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="check_box" invisible="1"/>
+                </xpath>
+
+              	<xpath expr="//button[@name='action_confirm']" position="replace">
+                    <button string="Confirm" name="action_confirm" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_approve']" position="replace">
+                    <button string="Approve" name="action_approve" type="object"  class="oe_highlight"  attrs="{'invisible': ['|',('check_box', '!=', False),('state', '!=', 'confirm')]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_refuse']" position="replace">
+                    <button string="Refuse" name="action_refuse" type="object" attrs="{'invisible': ['|',('check_box', '!=', False),('state', 'not in', ['confirm','validate','validate1'])]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_draft']" position="replace">
+                    <button string="Reset to Draft" name="action_draft" type="object"
+                            attrs="{'invisible': ['|',('check_box', '!=', False), ('can_reset', '=', False), ('state', 'not in', ['confirm', 'refuse'])]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_draft']" position="after">
+                   <button string="Cancel Leave" name="action_leave_cancellation" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'validate')]}"/>
+               </xpath>
+
+               <xpath expr="//button[@name='action_leave_cancellation']" position="after">
+                   <button string="Approve Cancellation" name="action_leave_cancel_approval" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'cancel_leave')]}" groups="vertiple__employee.reporting_manager,vertiple__employee.only_manager,base.group_system"/>
+               </xpath>
+
+               <xpath expr="//button[@name='action_leave_cancel_approval']" position="after">
+                   <button string="Reject Cancellation" name="action_leave_cancel_refusal" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', 'cancel_leave')]}" groups="vertiple__employee.reporting_manager,vertiple__employee.only_manager,base.group_system"/>
+               </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="compensatory_holiday">
+
+        <field name="name">Compensatory Request</field>
+        <field name="model">compensatory_holiday</field>
+        <field name="arch" type="xml">
+            <form string = "Compensatory request">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,validate"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="holiday_status_id"/>
+                            <label for="number_of_days_temp" string="Duration"/>
+                           <div>
+                                <div>
+                                    <field name="date_from" class="oe_inline"/>
+                                    <label string="-" class="oe_inline"/>
+                                    <field name="date_to" class="oe_inline"/>
+                                </div>
+                                <div>
+                                    <field name="number_of_days_temp" class="oe_inline"/> days
+                                </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="employee_id" />
+                            <field name="holiday_type" />
+                        </group>
+                        <field name="notes" nolabel="1" colspan="4" placeholder="Add a reason..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="compensatory_action" model="ir.actions.act_window">
+        <field name="name">Compensatory Request</field>
+        <field name="res_model">compensatory_holiday</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a Request.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_compensatory_request_new"
+            name="Apply Compensatory Leave"
+            parent="hr_holidays.menu_hr_holidays_my_leaves"
+            action="compensatory_action"
+            groups ="vertiple__employee.only_manager,base.group_system,vertiple__employee.hrms_employee,vertiple__employee.group_only_user"
+            sequence="99"/>
+
+</odoo>

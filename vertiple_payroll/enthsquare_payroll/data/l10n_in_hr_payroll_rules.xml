@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <!-- Salary Rules Allowance -->
+		<record id="l10n_in_hr_payroll.hr_salary_rule_da" model="hr.salary.rule">
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = (contract.wage * 0.50) if payslip.company_id.dearness_allowance else 0</field>
+            <field name="sequence" eval="13"/>
+            <field name="note">Dearness allowance (D.A.) is part of a person's salary. It is calculated as a percent of the basic salary. This amount is then added to the basic salary along with house rent allowance to get the total salary. Or you can say that The Dearness Allowance is a part of the total compensation a person receives for having performed his or her job.</field>
+        </record>
+
+        <record id="l10n_in_hr_payroll.hr_salary_rule_houserentallowancemetro_nonmetro" model="hr.salary.rule">
+            <field name="amount_python_compute">result = (payslip.company_id.dearness_allowance and 
+((contract.wage + categories.DA) * contract.house_rent_allowance_metro_nonmetro / 100)
+or (categories.BASIC * contract.house_rent_allowance_metro_nonmetro / 100))</field>
+            <field name="sequence" eval="14"/>
+        </record>
+
+		<record id="l10n_in_hr_payroll.hr_salary_trans_allownce" model="hr.salary.rule">
+            <field name="code">CA</field>
+            <field name="name">Conveyance Allownace</field>
+            <field eval="1600.0" name="amount_fix"/>
+            <field name="sequence" eval="20"/>
+        </record>
+
+		<record id="l10n_in_hr_payroll.hr_salary_rule_bonus" model="hr.salary.rule">
+            <field name="name">Bonus/Incentives</field>
+        </record>        
+
+        <record id="l10n_in_hr_payroll.hr_salary_rule_special" model="hr.salary.rule">
+            <field name="name">Special Allowance</field>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = contract.wage - categories.BASIC - categories.ALW</field>
+            <field name="sequence" eval="51"/>
+        </record>
+
+        <!-- Salary Rules Deduction -->
+        <record id="l10n_in_hr_payroll.hr_payslip_line_professional_tax" model="hr.salary.rule">
+            <field name="amount_python_compute">result = (-200 if categories.GROSS>= 20000 else -150 if ((categories.GROSS>= 15000) and (categories.GROSS &lt;= 19999)) else -0)</field>
+        </record>
+
+        <record id="hr_salary_rule_income_tax" model="hr.salary.rule">
+            <field name="code">IT</field>
+            <field name="name">Income Tax</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = inputs.IT.amount</field>
+            <field name="register_id" ref="l10n_in_hr_payroll.hr_tds_register"/>
+            <field name="sequence" eval="147"/>
+            <field name="note">This would be fully taxable based on Bonus.</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+        <record id="hr_rule_input_income_tax" model="hr.rule.input">
+            <field name="code">IT</field>
+            <field name="name">Income Tax</field>
+            <field name="input_id" ref="hr_salary_rule_income_tax"/>
+        </record>
+
+        <record id="hr_salary_rule_lwp" model="hr.salary.rule">
+            <field name="code">LWP</field>
+            <field name="name">Leaves Without Pay</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = worked_days.Unpaid and worked_days.Unpaid.number_of_days or False</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = -(contract.wage/int(payslip.days_per_month)) * worked_days.Unpaid.number_of_days</field>
+            <field name="sequence" eval="150"/>
+            <field name="note">Amount deducted for the Leave of absense when out of the leave balance</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+
+        <!-- Salary Structures -->
+
+         <record id="india_standard_structure" model="hr.payroll.structure">
+            <field name="code">IND</field>
+            <field name="name">Indian Standard Structure</field>
+            <field eval="[(6, 0, [ref('l10n_in_hr_payroll.hr_salary_rule_da'), ref('l10n_in_hr_payroll.hr_salary_rule_arrears'),ref('l10n_in_hr_payroll.hr_salary_rule_bonus'),ref('l10n_in_hr_payroll.hr_salary_rule_performance'),ref('l10n_in_hr_payroll.hr_salary_rule_houserentallowancemetro_nonmetro'),ref('l10n_in_hr_payroll.hr_salary_trans_allownce'),ref('l10n_in_hr_payroll.hr_salary_rule_special'),ref('l10n_in_hr_payroll.hr_payslip_rule_tds'),ref('l10n_in_hr_payroll.hr_payslip_line_professional_tax'),ref('hr_salary_rule_income_tax'),ref('hr_salary_rule_lwp')])]" name="rule_ids"/>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+	</data>
+</odoo>

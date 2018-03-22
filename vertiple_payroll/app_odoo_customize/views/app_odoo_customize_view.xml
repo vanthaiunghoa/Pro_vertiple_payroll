@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="switch_language" name="switch_language assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/app_odoo_customize/static/src/js/app_window_title.js"/>
+            </xpath>
+        </template>
+
+        <template id="sub_menu_footer_inherit" inherit_id="web.menu_secondary">
+           <xpath expr="//div[2][@class='o_sub_menu_footer']/a" position="replace">
+                <a href="http://www.systemongrid.com" target="_blank">
+               <span>System on Grid</span></a>
+           </xpath>
+       </template>
+       
+       <template id="inherit_favicon_layout" inherit_id="web.layout" name="MYSITE layout" priority="17">
+           <xpath expr="//head//link" position="replace">
+               <link rel="shortcut icon" href="/app_odoo_customize/static/src/img/vertiple.ico" type="image/x-icon"/>
+           </xpath>
+       </template>
+
+    </data>
+</odoo>

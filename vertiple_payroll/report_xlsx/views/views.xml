@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="hr_payroll.action_contribution_register"
+        model="hr.contribution.register"
+        string="PaySlip Lines By Conribution Register"
+        report_type="xlsx"
+        name="hr_payroll.report_contributionregister"
+        file="hr_payroll.report_contributionregister"
+        menu="False"
+    />
+
+    <report
+        auto="False"
+        id="l10n_in_hr_payroll.yearly_salary"
+        model="yearly.salary.detail"
+        string="Yearly Salary by Employee"
+        report_type="xlsx"
+        name="l10n_in_hr_payroll.report_hryearlysalary"
+        file="l10n_in_hr_payroll.report_hryearlysalary"
+    />
+
+    <report
+        id="l10n_in_hr_payroll.hr_salary_bymonth"
+        string="Yearly Salary by Head"
+        model="hr.salary.employee.month"
+        report_type="xlsx"
+        file="l10n_in_hr_payroll.report_hrsalarybymonth"
+        name="l10n_in_hr_payroll.report_hrsalarybymonth"
+    />
+
+	<report
+        id="monthly_tax_template"
+        string="Ad-hoc Details Report"
+        model="report_xlsx.monthly_tax"
+        report_type="qweb-pdf"
+        file="report_xlsx.monthly_tax_report"
+        name="report_xlsx.monthly_tax_report"
+    />
+</odoo>

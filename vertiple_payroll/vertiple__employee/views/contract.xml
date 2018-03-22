@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+<record model="ir.ui.view" id="hr_contract_inherit">
+  <field name="name">hr employee inherit</field>
+  <field name="model">hr.contract</field>
+  <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+  <field name="arch" type="xml">
+    <data>
+      <xpath expr="//header/field[@name='state']" position="before">
+            <button string="Send Appointment Letter" name="send_system_appointment_mail" type="object" groups = "vertiple__employee.only_manager" class="btn-primary"/>
+      </xpath>
+      <xpath expr="//field[@name='wage']" position="attributes">
+            <attribute name='string'>CTC (Montly)</attribute>
+      </xpath>
+
+      <xpath expr="/form/sheet/notebook/page/group[1]/group[2]" position="replace">
+        <group name="duration_group" string="Duration">
+          <label for="trial_date_start" string="Probation Start Date"/>
+          <div>
+            <field name="trial_date_start" class="oe_inline"/> 
+          </div>
+
+          <label for="trial_date_start" string="Probation End Date"/>
+          <div>
+            <field name="trial_date_end" class="oe_inline"/>
+          </div>
+          <label for="date_start" string="Date of Joining"/>
+          <div>
+            <field name="date_start" class="oe_inline"/> 
+          </div>
+          <label for="date_start" string="Date of Relieving"/>
+          <div>
+            <field name="date_end" class="oe_inline"/> 
+          </div>
+          <label for="working_hours" string="Working Schedule"/>
+          <div>
+            <field name="working_hours" class="oe_inline"/>
+          </div>
+        </group>
+      </xpath>
+    </data>
+  </field>
+</record>
+</odoo>

@@ -1,0 +1,94 @@
+<odoo>
+    <data>      
+       <!--     Job Titles      -->
+       <record id="Associate" model="hr.job">
+           <field name="name">Associate</field>     
+       </record>
+       <record id="Recruiter" model="hr.job">
+           <field name="name">Recruiter</field>     
+       </record>
+       <record id="Executive" model="hr.job">
+           <field name="name">Executive</field>     
+       </record>
+       <record id="Linux_Administrator" model="hr.job">
+           <field name="name">Linux Administrator</field>     
+       </record>
+       <record id="Microsoft_Dynamics" model="hr.job">
+           <field name="name">Microsoft Dynamics - Practice Head</field>     
+       </record>
+       <record id="Director" model="hr.job">
+           <field name="name">Director</field>     
+       </record>
+       <record id="Python_Developer" model="hr.job">
+           <field name="name">Python Developer</field>     
+       </record>
+       <record id="Technical_Recruiter" model="hr.job">
+           <field name="name">Technical Recruiter</field>     
+       </record>
+       <record id="Technical_Consultant" model="hr.job">
+           <field name="name">Technical Consultant</field>     
+       </record>
+       <record id="Team_Lead" model="hr.job">
+           <field name="name">Team Lead</field>     
+       </record>
+       <record id="Sr_Executive" model="hr.job">
+           <field name="name">Sr. Executive</field>     
+       </record>
+
+       <!--     Departments       -->
+       <record id="Accounts" model="hr.department">
+           <field name="name">Accounts</field>     
+       </record>
+       <record id="Bench_Sales" model="hr.department">
+           <field name="name">Bench Sales</field>     
+       </record>
+       <record id="Business_Development" model="hr.department">
+           <field name="name">Business Development</field>     
+       </record>
+       <record id="Digital_Marketing" model="hr.department">
+           <field name="name">Digital Marketing</field>     
+       </record>
+       <record id="Free_Lancer" model="hr.department">
+           <field name="name">Free Lancer</field>     
+       </record>
+       <record id="Human_Resources" model="hr.department">
+           <field name="name">Human Resources</field>     
+       </record>
+       <record id="Immigration" model="hr.department">
+           <field name="name">Immigration</field>     
+       </record>
+       <record id="IT_Recruitment" model="hr.department">
+           <field name="name">IT Recruitment</field>     
+       </record>
+       <record id="Linux_Admnistration" model="hr.department">
+           <field name="name">Linux Admnistration</field>     
+       </record>
+       <record id="Linux_Team" model="hr.department">
+           <field name="name">Linux Team</field>     
+       </record>
+       <record id="Management" model="hr.department">
+           <field name="name">Management</field>     
+       </record>
+       <record id="Networking" model="hr.department">
+           <field name="name">Networking</field>     
+       </record>
+       <record id="Sales" model="hr.department">
+           <field name="name">Sales</field>     
+       </record>
+       <record id="Software_Development" model="hr.department">
+           <field name="name">Software Development</field>     
+       </record>
+       <record id="SOG" model="hr.department">
+           <field name="name">SOG</field>     
+       </record>
+       <record id="Talent_Engagement" model="hr.department">
+           <field name="name">Talent Engagement</field>     
+       </record>
+       <record id="Training" model="hr.department">
+           <field name="name">Training</field>     
+       </record>
+       <record id="US_HR" model="hr.department">
+           <field name="name">US HR</field>     
+       </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<report 
+		id="action_enth_payslip_report" 
+        model="hr.payslip" 
+        string="Enthsquare Payslip"
+        report_type="qweb-pdf"
+        name="enthsquare_payroll.payslip_report" 
+        file="enthsquare_payroll.payslip_report"
+        attachment="object.name"
+        groups = "hr_payroll.group_hr_payroll_user"
+    />
+</odoo>

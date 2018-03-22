@@ -1,0 +1,83 @@
+<odoo>
+   <data>
+    <template id="assets_backend" name="web_disable_export_group assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/enthsquare_payroll/static/src/js/disable_export.js"/>
+      </xpath>
+    </template>
+
+    <template id="document.assets_backend" name="rename_attachment assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/enthsquare_payroll/static/src/js/rename_attachment.js"/>
+      </xpath>
+    </template>
+
+    <record model="ir.ui.view" id="oe_chatter_disable">
+      <field name="name">hr employee inherit</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='message_follower_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='message_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="oe_chatter_disable1">
+      <field name="name">hr.job.form.inherit</field>
+      <field name="model">hr.job</field>
+      <field name="inherit_id" ref="hr.view_hr_job_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='message_follower_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="oe_chatter_disable_view_department_form">
+      <field name="name">hr.department.form.inherit</field>
+      <field name="model">hr.department</field>
+      <field name="inherit_id" ref="hr.view_department_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='message_follower_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='message_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="oe_chatter_disable_hr_contract_view_form">
+      <field name="name">hr.contract.form.inherit</field>
+      <field name="model">hr.contract</field>
+      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='message_follower_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='message_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="oe_chatter_disable_edit_holiday_new">
+      <field name="name">Leave Request Inherit</field>
+      <field name="model">hr.holidays</field>
+      <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='message_follower_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <xpath expr="//field[@name='message_ids']" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </xpath>
+      </field>
+    </record>
+
+   </data>
+</odoo>

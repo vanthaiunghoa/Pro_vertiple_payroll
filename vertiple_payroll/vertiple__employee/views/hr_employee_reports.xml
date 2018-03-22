@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+            <report 
+            id="action_birthday" 
+            model="hr.employee" 
+            string="Birthday Report"
+            report_type="qweb-pdf"
+            name="vertiple__employee.report_birthday" 
+            file="vertiple__employee.report_birthday"
+            menu="False"/>
+            
+            <report 
+            id="action_anniversary" 
+            model="hr.employee" 
+            string="Anniversary report"
+            report_type="qweb-pdf"
+            name="vertiple__employee.report_anniversary" 
+            file="vertiple__employee.report_anniversary"
+            menu="False"/>
+
+            <report 
+            id="appointment_letter" 
+            model="hr.contract" 
+            string="Appointment Letter"
+            report_type="qweb-pdf"
+            name="vertiple__employee.report_appointment_letter" 
+            file="vertiple__employee.report_appointment_letter"
+            menu="False"/>
+
+</odoo>

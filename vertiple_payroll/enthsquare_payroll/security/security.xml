@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="group_hr_payroll_emp" model="res.groups">
+        <field name="name">Payroll/Employee</field>
+        <field name="category_id" ref="base.module_category_hr_payroll"/>
+    </record>
+
+    <record id="group_hr_payroll_only_manager" model="res.groups">
+        <field name="name">Payroll/Only Manager</field>
+        <field name="category_id" ref="base.module_category_hr_payroll"/>
+    </record>
+
+    <record id="hr_contract.access_hr_contract_user" model="ir.model.access">
+       <field name="perm_read" eval="True"/>
+       <field name="perm_write" eval="True"/>
+       <field name="perm_create" eval="True"/>
+       <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="hr_payroll.access_hr_payslip" model="ir.model.access">
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="hr_payroll.access_hr_contribution_register" model="ir.model.access">
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="multi_company_employee" model="ir.rule"> 
+        <field name="name">Multi Company Employee</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="domain_force">[('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="multi_company_leaves" model="ir.rule"> 
+        <field name="name">Multi Company Leaves</field>
+        <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+        <field name="domain_force">['|',('employee_id.company_id','=',False),('employee_id.company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="leaves_managing_hierarchy" model="ir.rule"> 
+        <field name="name">Leaves Hierarchy</field>
+        <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+        <field name="groups" eval="[(4,ref('vertiple__employee.reporting_manager'))]"/>
+        <field name="domain_force">['|', ('employee_id', 'child_of', [user.employee_ids[0].id]), ('employee_id.department_id.manager_id.user_id.id', '=', user.id)]</field>
+    </record>
+
+    <record id="multi_company_attendances" model="ir.rule"> 
+        <field name="name">Multi Company Attendances</field>
+        <field name="model_id" ref="hr_attendance.model_hr_attendance"/>
+        <field name="domain_force">['|',('employee_id.company_id','=',False),('employee_id.company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="multi_company_payslips" model="ir.rule"> 
+        <field name="name">Multi Company Payslips</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+        </field>
+    </record>
+
+    <record id="multi_company_contribution_registers" model="ir.rule"> 
+        <field name="name">Multi Company Contribution Registers</field>
+        <field name="model_id" ref="hr_payroll.model_hr_contribution_register"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+        </field>
+    </record>
+
+    <record id="multi_company_payslip_batches" model="ir.rule">
+        <field name="name">Multi Company Payslip Batches</field>
+        <field name="model_id" ref="model_hr_payslip_run"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="multi_company_payment_advice" model="ir.rule">
+        <field name="name">Multi Company Payment Advice</field>
+        <field name="model_id" ref="model_hr_payroll_advice"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="multi_company_employee_contracts" model="ir.rule">
+        <field name="name">Multi Company Employee Contracts</field>
+        <field name="model_id" ref="model_hr_contract"/>
+        <field name="domain_force">['|',('employee_id.company_id','=',False),('employee_id.company_id','child_of',[user.company_id.id])]</field>
+    </record>     
+
+    <record id="multi_company_salary_structure" model="ir.rule"> 
+        <field name="name">Multi Company Salary structure</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payroll_structure"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+        </field>
+    </record>
+
+    <record id="multi_company_salary_rules" model="ir.rule"> 
+        <field name="name">Multi Company Salary Rules</field>
+        <field name="model_id" ref="hr_payroll.model_hr_salary_rule"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]
+        </field>
+    </record>
+
+    <record id="multi_company_payslip_analysis" model="ir.rule"> 
+        <field name="name">Multi Company Payslip Analysis</field>
+        <field name="model_id" ref="l10n_in_hr_payroll.model_payslip_report"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="multi_company_advice_analysis" model="ir.rule"> 
+        <field name="name">Multi Company Advice Analysis</field>
+        <field name="model_id" ref="l10n_in_hr_payroll.model_payment_advice_report"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="property_rule_payslips_only_for_employee" model="ir.rule">
+        <field name="name">Only Payslips for Employee</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field name="domain_force">['&amp;',('employee_id.user_id','=',user.id),('state','=','done')]</field>
+        <field name="groups" eval="[(4,ref('enthsquare_payroll.group_hr_payroll_emp'))]"/>
+    </record>
+
+    <record id="base.ir_filters_admin_all_rights_rule" model="ir.rule">
+        <field name="name">ir.filters.admin.all.rights</field>
+        <field name="model_id" ref="base.model_ir_filters"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>  
+</odoo>

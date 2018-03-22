@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="leave_email_manager" model="ir.actions.server">
+            <field name="name">Leave Email Notification to Manager</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">email</field>
+            <field name="template_id" ref="vertiple__employee.leave_email_to_manager_template"/>
+        </record>
+
+        <record id="leave_email_approved_to_emp_sa" model="ir.actions.server">
+            <field name="name">Leave Email Approved Notification to Employee</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">email</field>
+            <field name="template_id" ref="vertiple__employee.leave_approved_email_to_emp_template"/>
+        </record>
+
+        <record id="leave_email_refused_to_emp_sa" model="ir.actions.server">
+            <field name="name">Leave Email Refused Notification to Employee</field>
+            <field name="model_id" ref="hr_holidays.model_hr_holidays"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">email</field>
+            <field name="template_id" ref="vertiple__employee.leave_refused_email_to_emp_template"/>
+        </record>
+
+        <record id="emp_completion_prob_sa" model="ir.actions.server">
+            <field name="name">Nearing to Completion Of Probation Email Notification</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">email</field>
+            <field name="template_id" ref="vertiple__employee.emp_prob_near_complete_template"/>
+        </record>
+
+        <record id="status_set_to_manager_review" model="ir.actions.server">
+            <field name="name">Employee Status: Set to Manager Review</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="code">records.employee_id.set_to_manager_review()</field>
+        </record>
+	</data>	
+</odoo>

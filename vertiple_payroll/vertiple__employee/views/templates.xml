@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_appointment_letter">
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <br/><br/>
+                    <t t-foreach="docs" t-as="doc">
+                        <p>Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></p>
+                    
+                        <p>ATTN: <span t-field="doc.employee_id"/></p>
+
+                        <p>Re: Employement Offer as "<b><span t-field="doc.job_id"/></b>"</p>
+                    
+                        <p>Dear <span t-field="doc.employee_id"/>,</p>
+                    
+                        <p>It gives me the great pleasure to extend an offer for a post of "<b><span t-field="doc.job_id"/></b>" in our organization. Your effective start date will be <b><span t-field="doc.date_start"/></b> provided you submit all the required documentation and any ID/Proofs that will be requested separately. Failing to do so will result in this offer getting void. You will report to work at our office located at Gachibowli. After Successful submission of paper work whcih includes but not limited to requested proofs and probation period, we will be providing a separate Appointment letter and you have to under sign a NDA as part of the company security norms.</p>
+                    
+                        <p>You will be on probation for three months during which your performance will be monitored and required training will be given for carrying your duties. Enthsquare reserves the right to terminate any time in case of disciplinary or performance issues during. Enthsquare reserves the right to withhold the stipend against such issue in terms of damanges. Your compensation will have a fixed monthly CTC of Rs.<b><span t-field="doc.wage"/>/-</b></p>
+
+                        <p>I welcome you to the most energetic and rewarding company and I wish you all the best that you will succeed and reach new levels in your career and professional life. Welcome on board..!</p>
+
+                        <br/><br/><br/><br/><br/>
+
+                        <p style="text-align:left;margin:0">Lavanya Annie<span style="float:right;margin:0;width:300"><span style="float:left;text-align:left" t-field="doc.employee_id"/></span></p>
+
+                        <p style="text-align:left;margin:0;">Director Operations<span style="float:right;margin:0;width:300">Date:<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></span></p>
+
+                        <p style="text-align:left;margin:0">Enthsquare Technologies India Pvt. Ltd.</p><p style="text-align:left;margin:0;">Date:<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d %B %Y')"/></p>
+                    </t>                  
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

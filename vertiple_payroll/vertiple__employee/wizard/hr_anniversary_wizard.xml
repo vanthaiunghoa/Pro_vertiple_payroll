@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_anniversary_details" model="ir.ui.view">
+        <field name="name">vertiple__employee.anniversary_details</field>
+        <field name="model">vertiple__employee.anniversary_details</field>
+        <field name="arch" type="xml">
+        <form string="example bday">
+            <group col="4" colspan="6">
+                <field name="date_from"/>
+                <newline/>
+                <field name="date_to"/>
+            </group>
+            <footer>
+                <button name="print_report" string="Print" type="object" class="btn-primary"/>
+                <button string="Cancel" class="btn-default" special="cancel"/>
+            </footer>
+        </form>
+            </field>
+        </record>
+
+        <record id="action_anniversary_details" model="ir.actions.act_window">
+            <field name="name">Anniversary lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vertiple__employee.anniversary_details</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="anniversary_menuitem" name="Anniversary" 
+            parent="vertiple__employee.menu_hr_report"
+            action="action_anniversary_details" 
+            sequence="11"
+            />
+</odoo>

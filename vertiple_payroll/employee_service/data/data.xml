@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate="1">
+       <record id="Employement" model="employee_service.employee_request_type">
+           <field name="name">Employement Request</field>     
+       </record>
+       <record id="Address" model="employee_service.employee_request_type">
+           <field name="name">Address Proof Request</field>     
+       </record>
+   </data>
+</odoo>

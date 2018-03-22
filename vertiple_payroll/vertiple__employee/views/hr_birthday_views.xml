@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_birthday">
+    <t t-call="report.html_container">
+        
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <br></br>
+                    <h2>Birthday Details</h2>
+                    <t t-foreach="docs" t-as="o">
+                    <div class="row mt32 mb32">
+                        
+                        <div class="col-xs-3">
+                            <strong>Date From:</strong>
+                            <p t-esc="data['form']['date_from']"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Date To:</strong>
+                            <p t-esc="data['form']['date_to']"/>
+                        </div>
+
+                    </div>
+
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <div class="col-xs-3">
+                                <th width="22%">Employee ID</th>
+                                <th>Employee Name</th>
+                                <th>Birthday</th>
+                                </div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="lines_data" t-as="line">
+                                <td><span t-esc="lines_data[line][0]"/></td>
+                                <td><span t-esc="lines_data[line][1]"/></td>
+                                <td><span t-esc="lines_data[line][2]"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+                </div>
+        </t>
+    </t>
+</template>
+</odoo>
